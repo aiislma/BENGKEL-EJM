@@ -10,11 +10,18 @@
     />
     <style>
         .hero-bg {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: background-image 1s ease-in-out;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 500px; /* pastikan tinggi konsisten */
+    transition: background-image 1s ease-in-out;
+    }
+    @media (max-width: 768px) {
+    .hero-bg {
+        height: 300px;
         }
+    }
+
     </style>
 </head>
 <body class="font-sans">
