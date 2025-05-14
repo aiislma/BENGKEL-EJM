@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJM - Suku Cadang Motor</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #008080;
+            color: white;
+        }
+
+        .top-bar {
+            background-color: #006666;
+            padding: 10px 20px;
+            text-align: right;
+        }
+
+        .top-bar .social-icons a {
+            display: inline-block;
+            margin-left: 10px;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .top-bar .social-icons a:hover {
+            opacity: 0.8;
+            color: lightgray;
+        }
+
+        .top-bar .social-icons img {
+            width: 0;
+            height: 0;
+            vertical-align: middle;
+            margin-right: 0;
+        }
+
+        .top-bar .social-icons a span {
+            font-size: 0.9em;
+        }
+
+        .main-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .logo img {
+            height: 50px;
+            opacity: 0.7;
+        }
+
+        .search-bar {
+            display: flex;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            width: 300px;
+            color: #333;
+        }
+
+        .search-bar button {
+            background-color: #ffcc00;
+            color: #333;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #e6b800;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-bar button img {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            opacity: 0.7;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #006666;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background-color: #e9ecef;
+            flex-grow: 1;
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+            border: 1px solid #ced4da;
+            position: relative;
+            overflow: hidden;
+            --mouse-x: 0px;
+            --mouse-y: 0px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            opacity: 1;
+        }
+
+        .product-card h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            color: #212529;
+        }
+
+        .product-card .rating {
+            color: #ffc107;
+            margin-bottom: 5px;
+        }
+
+        .product-card .price {
+            font-weight: bold;
+            color: #198754;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+
+        .footer-top h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #ddd;
+            font-size: 1em;
+        }
+
+        .footer-top .links {
+            text-align: center;
+        }
+
+        .footer-top .links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            display: inline-block;
+        }
+
+        .footer-top .links ul li {
+            margin: 5px 0;
+            display: block;
+        }
+
+        .footer-top .links ul li a {
+            text-decoration: none;
+            color: #ddd;
+            transition: color 0.2s ease;
+            font-size: 0.9em;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: block;
+            text-align: center;
+        }
+
+        .footer-top .links ul li a:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-top ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-top ul li {
+            margin-bottom: 5px;
+        }
+
+        .footer-top ul li a {
+            text-decoration: none;
+            color: #ddd;
+            transition: color 0.2s ease;
+            font-size: 0.9em;
+        }
+
+        .footer-top ul li a:hover {
+            color: white;
+        }
+
+        .footer-top .contact-info h3 {
+            color: #ddd;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .footer-top .contact-info p {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .footer-top .contact-info p a {
+            color: #ddd;
+            text-decoration: none;
+        }
+
+        .footer-top .contact-info p a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 5px;
+            border-top: 1px solid #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8em;
+        }
+
+        .footer-bottom p {
+            color: #ddd;
+            margin: 5px 0;
+        }
+
+        .footer-bottom .social-icons a {
+            display: inline-block;
+            margin-left: 5px;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .footer-bottom .social-icons a:hover {
+            opacity: 0.8;
+            color: lightgray;
+        }
+
+        .footer-bottom .social-icons img {
+            width: 0;
+            height: 0;
+            vertical-align: middle;
+            margin-right: 0;
+        }
+
+        .footer-bottom .social-icons a span {
+            font-size: 0.8em;
+        }
+
+        .top-bar .social-icons img,
+        .main-header .logo img,
+        .search-bar button img,
+        .product-card img,
+        .footer-top .booking-info img {
+        }
+
+        .footer-top .booking-info h3 {
+            color: #ddd;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .footer-top .booking-info img {
+            max-width: 80%; /* Perkecil ukuran logo di sini */
+            height: auto;
+            display: block;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: var(--mouse-y);
+            left: var(--mouse-x);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.3s ease-out;
+            pointer-events: none;
+        }
+
+        .product-card:hover::before {
+            transform: translate(-50%, -50%) scale(3);
+        }
+
+        .product-card.clicked {
+            animation: pulse 0.3s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="social-icons">
+                <a href="https://www.instagram.com/_lintanggokk?igsh=MW5wN282YzQ1MzJ4Nw=="><span>Instagram</span></a>
+                <a href="https://wa.wizard.id/c5c04e"><span>WhatsApp</span></a>
+                <a href="https://maps.app.goo.gl/KYh9A4spoUNhkaA96"><span>Maps</span></a>
+                <a href="https://youtube.com/@relilinjaya?si=QTVqPykxvSfVHenX"><span>YouTube</span></a>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="logo">
+                <img src="image/logoo.png" alt="Logo EJM">
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Cari suku cadang...">
+                <button><img src="placeholder-search-icon.png" alt="Cari"></button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="bagiannya zura.html">LAYANAN & FASILITAS</a></li>
+                    <li class="active"><a href="#">SUKU CADANG</a></li>
+                    <li><a href="soffireservasi.html">RESERVASI</a></li>
+                    <li><a href="randyulasan.html">ULASAN</a></li>
+                    <li><a href="artandahomeprofil.html">PROFILE</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="product-list" id="productList">
+        <div class="product-card" data-name="VELG CHROME RMS 17">
+            <img src="lin1.png" alt="Velg Chrome">
+            <h3>VELG CHROME RMS 17</h3>
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+            <div class="price">Rp 250.000</div>
+        </div>
+        <div class="product-card" data-name="SHOCK YSS (AEROX 155)">
+            <img src="lin 2.png" alt="Shockbreaker YSS">
+            <h3>SHOCK YSS (AEROX 155)</h3>
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+            <div class="price">Rp 600.000</div>
+        </div>
+        <div class="product-card" data-name="Ban & Velg (FDR/...)">
+            <img src="lin 3.png" alt="Ban dan Velg">
+            <h3>Ban & Velg (FDR/...)</h3>
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+            <div class="price">Rp 150.000</div>
+        </div>
+        <div class="product-card" data-name="KNALPOT RACING (RXZ/RGR)">
+            <img src="lin 4.png" alt="Knalpot Racing">
+            <h3>KNALPOT RACING (RXZ/RGR)</h3>
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+            <div class="price">Rp 1.200.000</div>
+        </div>
+        <div class="product-card" data-name="BAUT FLANGE (BAUT BAUT)">
+            <img src="lin 5.png" alt="Baut Flange">
+            <h3>BAUT FLANGE (BAUT BAUT)</h3>
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+            <div class="price">Rp 4.000</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-top">
+            <div class="booking-info">
+                <h3>Booking Servis Online, Tanpa Ribet</h3>
+                <img src="image/logoo.png" alt="Logo EJM Footer">
+            </div>
+            <div class="head-office">
+                <h3>Head office</h3>
+                <p>Ds. Kendalrejo, Dsn. Pantimulyo</p>
+                <p>RT04/RW03, Kec. Talun, Kab. Blitar</p>
+            </div>
+            <div class="links">
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="bagiannya zura.html">LAYANAN & FASILITAS</a></li>
+                    <li><a href="relilin sukucadang.html">SUKU CADANG</a></li>
+                    <li><a href="soffireservasi.html">RESERVASI</a></li>
+                    <li><a href="randyulasan.html">ULASAN</a></li>
+                    <li><a href="artandaprofil.html">PENGEMBANG</a></li>
+                </ul>
+            </div>
+            <div class="contact-info">
+                <h3>Hubungi Kami</h3>
+                <p>Telp: <a href="tel:081230601914">0812-3060-1914</a></p>
+                <p>Email: <a href="mailto:info@ejm.com">info@ejm.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 EJM - Suku Cadang Motor</p>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/_lintanggokk?igsh=MW5wN282YzQ1MzJ4Nw=="><span>Instagram</span></a>
+                <a href="https://wa.wizard.id/c5c04e"><span>WhatsApp</span></a>
+                <a href="https://maps.app.goo.gl/KYh9A4spoUNhkaA96"><span>Maps</span></a>
+                <a href="https://youtube.com/@relilinjaya?si=QTVqPykxvSfVHenX"><span>YouTube</span></a>
+            </div>

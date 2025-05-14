@@ -1,0 +1,319 @@
+[10.17, 6/5/2025] +62 856-0453-7375: <!DOCTYPE html>
+<html>
+<head>
+  <title>EJM Services</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      opacity: 0; /* Atur opacity awal menjadi 0 */
+      transition: opacity 0.5s ease-in-out; /* Tambahkan transisi untuk efek fade */
+    }
+    .header {
+      background-color: #0A3D62;
+      padding: 15px 10px;
+      display: flex;
+      align-items: center;
+    }
+    .header .logo {
+      margin-right: 20px;
+    }
+    .header .logo img {
+      width: 80px;
+      height: 80px;
+    }
+    .header .search-bar {
+      display: flex;
+      align-items: center;
+      margin-right: auto;
+    }
+    .header .search-bar input {
+      padding: 10px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      font-size: 16px;
+    }
+    .header .search-bar button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #FFD700;
+      border-radius: 0 5px 10px 0;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .header .nav {
+      display: flex;
+      align-items: center;
+      margin-left: 30px;
+    }
+    .header .nav a {
+      margin: 0 25px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      position: relative;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+    .header .nav a::before {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background-color: #FFA500;
+      transition: width 0.3s ease;
+    }
+    .header .nav a:hover {
+      color: #FFA500;
+      transform: scale(1.1);
+    }
+    .header .nav a:hover::before {
+      width: 100%;
+    }
+    .header .nav a:active {
+      transform: scale(1.2);
+      transition: transform 0.1s ease;
+    }
+    .nav {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      display: none;
+    }
+    .nav a {
+      margin: 10 30px;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
+    .main-content {
+      background-color: #C0392B;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .main-content h1 {
+      margin: 0;
+      font-size: 35px;
+    }
+    .main-content h1 span {
+      color: #F1C40F;
+    }
+    .services {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .service-item {
+      background-color: white;
+      color: black;
+      margin: 0 10px;
+      padding: 10px;
+      border-radius: 5px;
+      width: 300px;
+      position: relative;
+    }
+    .service-item img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .service-item h3 {
+      margin: 10px 0;
+    }
+    .service-item .deskripsi-pendek {
+      overflow: hidden;
+      max-height: 60px; /* Atur tinggi awal deskripsi yang terlihat */
+      transition: max-height 0.3s ease-out;
+    }
+    .service-item .deskripsi-lengkap {
+      max-height: none;
+      transition: max-height 0.3s ease-in;
+    }
+    .service-item p {
+      font-size: 14px;
+    }
+    .service-item .read-more {
+      color: #E74C3C;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .service-item .plus-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #F1C40F;
+      border-radius: 50%;
+      padding: 5px;
+      color: black;
+      transition: transform 0.2s ease-in-out; /* Tambahkan transisi untuk ikon plus */
+    }
+
+    .service-item .plus-icon:hover {
+      transform: rotate(90deg) scale(1.1); /* Efek rotasi dan skala saat hover */
+    }
+    .footer {
+      background-color: #0A3D62;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer .contact-info {
+      text-align: left;
+    }
+    .footer .contact-info p {
+      margin: 5px 0;
+    }
+    .footer .nav-links {
+      text-align: right;
+    }
+    .footer .nav-links a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 5px 0;
+    }
+    .footer .social-icons {
+      text-align: right;
+    }
+    .footer .social-icons a {
+      color: white;
+      margin: 0 5px;
+    }
+    .footer .social-icons i {
+      color: white;
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <img alt="EJM Logo" height="80" src="image/logoo.png" width="80"/>
+    </div>
+    <div class="search-bar">
+      <input placeholder="Search..." type="text"/>
+      <button>
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+    <div class="nav">
+      <a href="index.html">HOME</a>
+      <a href="bagiannya zura.html">LAYANAN & FASILITAS</a>
+      <a href="relilin sukucadang.html">SUKU CADANG</a>
+      <a href="soffireservasi.html">RESERVASI</a>
+      <a href="randyulasan.html">ULASAN</a>
+      <a href="artandaprofil.html">PENGEMBANG</a>
+    </div>
+  </div>
+  <div class="nav" style="display: none;">
+    <a href="index.html">HOME</a>
+    <a href="bagiannya zura.html">LAYANAN & FASILITAS</a>
+    <a href="relilin sukucadang.html">SUKU CADANG</a>
+    <a href="soffireservasi.html">RESERVASI</a>
+    <a href="randyulasan.html">ULASAN</a>
+    <a href="artandaprofil.html">PENGEMBANG</a>
+  </div>
+  <div class="main-content">
+    <h1>
+      Apa??
+      <br/>
+      Kata
+      <span>
+        Pelanggan
+      </span>
+      Yang
+      <br/>
+      Pernah
+      <span>
+        Datang
+      </span>
+    </h1>
+  </div>
+  <div class="services">
+    <div class="service-item" style="background-color: #d8cece; border: 1px solid #ddd; box-shadow: 2px 2px 5px #ccc;">
+      <img alt="foto" height="200" src="image/download.jpeg" width="300"/>
+      <h3>Andika Mahesa</h3>
+      <p class="deskripsi-pendek" id="deskripsi-1">
+        Wah, bener-bener dah! Motor gue tuh udah kayak batuk-batuk nggak sembuh-sembuh, tarikannya juga udah loyo kayak nggak dikasih makan. Tapi, begitu keluar dari tempat servis ini, langsung beda 180 derajat! Mesinnya jadi halus banget suaranya, terus pas digas langsung narik enteng kayak nggak ada beban. Pokoknya, puas banget deh sama hasilnya, recommended abis buat yang motornya udah mulai rewel.
+      </p>
+      <a class="read-more" href="#" data-target="deskripsi-1">READ MORE</a>
+      <div class="plus-icon">+</div>
+    </div>
+    <div class="service-item" style="background-color: #d3caca; border: 1px solid #ddd; box-shadow: 2px 2px 5px #ccc;">
+      <img alt="foto" height="200" src="image/bapak jawa.jpeg" width="300"/>
+      <h3>Sutrisno</h3>
+      <p class="deskripsi-pendek" id="deskripsi-2">
+        Gue tuh paling males kalau servis motor terus nggak ngerti apa-apa. Nah, di sini tuh beda. Orangnya ramah, terus mau jelasin detail masalah motor gue tuh apa aja dan diapain aja. Kemarin motor gue ada bunyi-bunyi aneh gitu, eh langsung ketemu sumbernya dan beres nggak pake lama. Harganya juga masih bersahabat lah sama kantong, nggak kayak tempat lain yang suka ngasih harga kejutan
+      </p>
+      <a class="read-more" href="#" data-target="deskripsi-2">READ MORE</a>
+      <div class="plus-icon">+</div>
+    </div>
+    <div class="service-item" style="background-color: hsl(0, 10%, 84%); border: 1px solid #ddd; box-shadow: 2px 2px 5px #ccc;">
+      <img alt="foto" height="200" src="image/download (1).jpeg" width="300"/>
+      <h3>Sugeng Widodo</h3>
+      <p class="deskripsi-pendek" id="deskripsi-3">
+        Parah sih, motor gue tuh udah kayak keong, jalannya lambat banget bikin emosi. Untung nemu tempat servis ini, kerjanya cepet, hasilnya juga oke banget. Sekarang motor gue udah lincah lagi buat selap-selip di jalanan. Lain kali kalau ada masalah, nggak bakal pindah ke lain hati deh, udah cocok banget servis di sini
+      </p>
+      <a class="read-more" href="#" data-target="deskripsi-3">READ MORE</a>
+      <div class="plus-icon">+</div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="contact-info">
+      <img alt="EJM Logo" height="70" src="image/logoo.png" width="70"/>
+      <p>Booking Servis Online, Tanpa Ribet</p>
+      <p>Head office</p>
+      <p>Ds. Kendalrejo, Dsn. Pantimulyo RT04/RW03, Kec.Talun,Kab.Blitar</p>
+    </div>
+    <div class="nav-links">
+      <a href="bagiannya zura.html">LAYANAN & FASILITAS</a>
+      <a href="relilin sukucadang.html">SUKU CADANG</a>
+      <a href="salmahome.html">TENTANG EJM</a>
+      <a href="randyulasan.html">ULASAN</a>
+    </div>
+    <div class="social-icons">
+      <p>Hubungi Kami</p>
+      <p>layanan@EJM.com</p>
+      <p>(+62)85785457239</p>
+      <a href="https://www.instagram.com/randywst_?igsh=MTE1Y3hrYzVnenRtYg==" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://wa.wizard.id/625b03" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://maps.app.goo.gl/KYh9A4spoUNhkaA96" target="_blank">
+        <i class="fas fa-map-marker-alt"></i>
+      </a>
+      <a href="https://www.youtube.com/@randipratama3287" target="_blank">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Efek Fade-In Halaman
+      document.body.style.opacity = 1;
+
+      // Efek "Baca Selengkapnya"
+      const readMoreLinks = document.querySelectorAll('.read-more');
+
+      readMoreLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          const targetId = this.getAttribute('data-target');
+          const descriptionElement = document.getElementById(targetId);
+          descriptionElement.classList.toggle('deskripsi-pendek');
+          descriptionElement.classList.toggle('deskripsi-lengkap');
+          this.textContent = descriptionElement.classList.contains('deskripsi-lengkap') ? 'READ LESS' : 'READ MORE';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,751 @@
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJM - Bengkel Terpercaya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f0ad4e;
+        }
+        .header {
+            background-color: #0a3b5a;
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header img {
+            height: 60px;
+            width: 60px;
+        }
+        .search-container {
+            display: flex;
+            width: 200px;
+        }
+        .search-container input[type=text] {
+            padding: 8px;
+            border: 1px solid white;
+            border-radius: 5px 0 0 5px;
+            font-size: 0.9em;
+            color: #333;
+            width: calc(100% - 35px);
+        }
+        .search-container button {
+            background-color: #f0ad4e;
+            color: black;
+            border: 1px solid #f0ad4e;
+            border-radius: 0 5px 5px 0;
+            padding: 8px 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            min-width: 35px;
+        }
+        .header nav {
+            display: flex;
+            align-items: center;
+        }
+        .header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding: 6px 10px;
+            font-weight: bold;
+            border: 2px solid white;
+            border-radius: 5px;
+            transform: translateY(0);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            font-size: 0.8em;
+        }
+        .header nav a:hover {
+            color: #0a3b5a;
+            background-color: #f0ad4e;
+            border-color: #f0ad4e;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        }
+        .header nav a:active {
+            transform: translateY(1px);
+            opacity: 0.9;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        #reservationFormContainer {
+            display: none;
+            background-color: #f8f8f8;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            max-width: 90%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        #reservationFormContainer.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #reservationStep1, #reservationStep2 {
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateX(0);
+        }
+        #reservationStep1.hide, #reservationStep2.hide {
+            opacity: 0;
+            transform: translateX(-10px);
+            display: none !important;
+        }
+        #reservationStep2.show {
+            opacity: 1;
+            transform: translateX(0);
+            display: block !important;
+        }
+        #reservationFormContainer h2, #reservationFormContainer h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #0a3b5a;
+        }
+        #reservationFormContainer select, #reservationFormContainer input[type="date"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        #reservationFormContainer button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        #reservationFormContainer button#nextStep1 {
+            background-color: #f0ad4e;
+            color: black;
+        }
+        #reservationFormContainer button#prevStep2 {
+            background-color: #ccc;
+            color: black;
+        }
+        #reservationFormContainer button#submitReservation {
+            background-color: #5cb85c;
+            color: white;
+        }
+        #reservationFormContainer button:hover {
+            opacity: 0.9;
+        }
+        #reservationMessage {
+            display: none;
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .main-content {
+            background-color: #d9534f;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 100%;
+            min-height: auto;
+            text-align: center;
+        }
+        .main-content .text-content {
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        .main-content h1 {
+            font-size: 1.8em;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .main-content p {
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+            color: #ddd;
+        }
+        .client-satisfaction {
+            margin-top: 20px;
+        }
+        .client-satisfaction p {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        .client-satisfaction .bar {
+            background-color: #ddd;
+            height: 15px;
+            width: 90%;
+            position: relative;
+            border-radius: 8px;
+        }
+        .client-satisfaction .bar span {
+            background-color: #f0ad4e;
+            height: 100%;
+            width: 0%;
+            display: block;
+            border-radius: 8px;
+            transition: width 1s ease-in-out;
+        }
+        .features {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .features .feature {
+            text-align: center;
+            width: 90%;
+            margin-bottom: 20px;
+        }
+        .features .feature img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: -20px;
+            object-fit: contain;
+        }
+        .features .feature p {
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        .contact-info {
+            margin-top: 50px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .contact-info a {
+            background-color: #f0ad4e;
+            color: black;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        .contact-info .phone {
+            margin-top: 0;
+            font-size: 1em;
+            font-family: 'Open Sans', 'Montserrat', sans-serif;
+        }
+        .form {
+            background-color: #d3d3d3;
+            padding: 20px;
+            width: 90%;
+            border-radius: 8px;
+            margin: 20px auto;
+        }
+        .form input, .form textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: white;
+            color: #0a3b5a;
+            font-size: 1em;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .form input::placeholder,
+        .form textarea::placeholder {
+            color: #aaa;
+            font-size: 1em;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .form textarea {
+            height: calc(1em * 1.6 * 4);
+        }
+        .form button {
+            background-color: #f0ad4e;
+            color: black;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            width: calc(100% - 10px);
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .footer {
+            background-color: #0a3b5a;
+            color: #ddd;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.7em;
+            text-align: center;
+        }
+        .footer-section {
+            width: 90%;
+            margin-bottom: 20px;
+        }
+        .footer-section h3 {
+            color: #f0ad4e;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        .footer-section p, .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons a {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.2em;
+            color: #ddd;
+            transition: color 0.3s ease-in-out transform 0.2s ease-in-out;
+        }
+        .scroll-to-top {
+            display: none;
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background-color: #0a3b5a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            opacity: 0.7;
+            font-size: 0.8em;
+            transition: opacity 0.3s ease;
+        }
+
+        @media (min-width: 769px) {
+            .header img {
+                height: 90px;
+                width: 90px;
+            }
+            .search-container {
+                width: 250px;
+            }
+            .search-container input[type=text] {
+                font-size: 1em;
+                width: calc(100% - 40px);
+            }
+            .search-container button {
+                font-size: 1em;
+                min-width: 40px;
+            }
+            .header nav a {
+                margin-left: 15px;
+                margin-right: 15px;
+                padding: 8px 12px;
+                font-size: 1em;
+            }
+            .header nav a:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+            #reservationFormContainer {
+                max-width: 600px;
+                padding: 30px;
+            }
+            #reservationFormContainer h2 {
+                font-size: 2em;
+            }
+            #reservationFormContainer h3 {
+                font-size: 1.5em;
+            }
+            #reservationFormContainer select, #reservationFormContainer input[type="date"] {
+                font-size: 1.2em;
+                padding: 12px;
+            }
+            #reservationFormContainer button {
+                font-size: 1.2em;
+                padding: 12px 20px;
+            }
+            .main-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding: 40px;
+                text-align: left;
+            }
+            .main-content .text-content {
+                max-width: 60%;
+                margin-bottom: 0;
+            }
+            .main-content h1 {
+                font-size: 2.5em;
+                margin-bottom: 20px;
+            }
+            .main-content p {
+                font-size: 1em;
+                margin-bottom: 30px;
+            }
+            .client-satisfaction {
+                margin-top: 30px;
+            }
+            .client-satisfaction p {
+                font-size: 1.1em;
+                margin-bottom: 10px;
+            }
+            .client-satisfaction .bar {
+                height: 20px;
+                border-radius: 10px;
+            }
+            .client-satisfaction .bar span {
+                border-radius: 10px;
+            }
+            .features {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-top: 30px;
+            }
+            .features .feature {
+                text-align: center;
+                width: 45%;
+                margin-bottom: 0;
+            }
+            .features .feature img {
+                width: 200px;
+                height: 200px;
+                margin-bottom: -30px;
+            }
+            .features .feature p {
+                font-size: 1em;
+            }
+            .contact-info {
+                margin-top: 50px;
+                text-align: center;
+                align-items:center;
+            }
+            .contact-info a {
+                font-size: 1em;
+                padding: 15px 30px;
+                margin-bottom: 10px;
+            }.contact-info .phone {
+                font-size: 1.2em;
+            }
+            .form {
+                width: 30%;
+                padding: 30px;
+                margin: 0;
+            }
+            .form input, .form textarea {
+                font-size: 1.2em;
+                padding: 18px;
+                margin-bottom: 22px;
+            }
+            .form input::placeholder,
+            .form textarea::placeholder {
+                font-size: 1.2em;
+            }
+            .form textarea {
+                height: calc(1.2em * 1.6 * 6);
+            }
+            .form button {
+                font-size: 1.2em;
+                padding: 15px 25px;
+                width: calc(100% - 20px);
+            }
+            .footer {
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: flex-start;
+                padding: 30px 20px;
+                font-size: 0.8em;
+                text-align: left;
+            }
+            .footer-section {
+                width: auto;
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
+            .footer-section:last-child {
+                margin-right: 0;
+            }
+            .footer-section h3 {
+                font-size: 2em;
+            }
+            .footer-section p, .footer-section a {
+                font-size: 1em;
+            }
+            .social-icons {
+                margin-top: 0;
+            }
+            .social-icons a {
+                font-size: 1.5em;
+                margin-right: 10px;
+            }
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 15px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="image/logoo.png" alt="Logo Bengkel">
+        <div class="search-container">
+            <input type="text" placeholder="Cari...">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </div>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="bagiannya zura.html">LAYANAN &amp; FASILITAS</a>
+            <a href="relilin sukucadang.html">SUKU CADANG</a>
+            <a href="soffireservasi.html" id="reservasiButton" class="nav-service-button">RESERVASI</a>
+            <a href="randyulasan.html">ULASAN</a>
+            <a href="artandaprofil.html">PENGEMBANG</a>
+        </nav>
+    </div>
+    <div id="reservationFormContainer">
+        <h2>Formulir Reservasi</h2>
+        <div id="reservationStep1">
+            <h3>Pilih Layanan</h3>
+            <select id="serviceType">
+                <option value="">-- Pilih Layanan --</option>
+                <option value="perbaikan_body">Perbaikan Body</option>
+                <option value="pengecatan">Pengecatan</option>
+                <option value="perakitan">Perakitan</option>
+                <option value="servis_ringan">Servis Ringan</option>
+                <option value="lain_lain">Lain-lain</option>
+            </select>
+            <button id="nextStep1">Lanjut</button>
+        </div>
+        <div id="reservationStep2">
+            <h3>Pilih Tanggal dan Waktu</h3>
+            <input type="date" id="reservationDate">
+            <select id="reservationTime">
+                <option value="">-- Pilih Waktu --</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+            </select>
+            <button id="prevStep2">Kembali</button>
+            <button id="submitReservation">Kirim Reservasi</button>
+            <div id="reservationMessage"></div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="text-content">
+            <h1>Perbaikan dan Perakitan Body Kendaraan Layanan yang Dapat Diandalkan</h1>
+            <p>Eko Jaya Motor, bengkel profesional dengan pengalaman lebih dari 20 tahun di bidang perbaikan dan perakitan kendaraan. Dengan misi memberikan pelayanan tepat waktu dan kualitas serta dukungan peralatan kerja dengan teknologi terkini, sistem manajemen mutu dan teknisi handal, menjadikan bengkel kami sebagai partner Anda yang terpercaya dan dapat diandalkan.</p>
+            <div class="client-satisfaction">
+                <p>Kepuasan Client</p>
+                <div class="bar"><span id="satisfactionBar"></span></div>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <img src="image/sopi1.jpg" alt="Profesional &amp; Staff Kreatif">
+                    <p>Profesional &amp; Staff Kreatif</p>
+                </div>
+                <div class="feature">
+                    <img src="image/sopi2.jpg" alt="Jaminan yang Terpercaya">
+                    <p>Jaminan yang Terpercaya</p>
+                </div>
+            </div>
+            <div class="contact-info">
+                <a href="#">Baca Lebih Lanjut</a>
+                <p class="phone"><i class="fas fa-phone"></i> (+62)85785457239</p>
+            </div>
+        </div>
+        <div class="form">
+            <input type="text" id="name" placeholder="Nama">
+            <input type="email" id="email" placeholder="Email">
+            <textarea id="message" placeholder="Pesan"></textarea>
+            <button id="requestServiceButton">Meminta Layanan</button>
+            <div id="requestServiceMessage" style="display:none; margin-top: 10px; color: green; font-weight: bold;"></div>
+        </div>
+    </div>
+    <marquee style="background-color: #111111; color: rgb(253, 251, 251); padding: 2,5px; font-size:0,1em; font-weight: bold;"
+             scrollamount="16" loop="infinite">
+    Selamat datang di EJM - Bengkel Terpercaya Anda!   Dapatkan layanan terbaik dengan teknisi handal dan suku cadang berkualitas.   Kunjungi kami sekarang!
+</marquee>
+    <div class="footer">
+        <div class="footer-section">
+            <h3>Head Office</h3>
+            <p>Ds. Kendalrejo Dsn. Pantimulyo</p>
+            <p>RT01/RW05 Kec. Talun Kab. Blitar</p>
+        </div>
+        <div class="footer-section">
+            <h3>Layanan &amp; Fasilitas</h3>
+            <p><a href="#">Perbaikan Body</a></p>
+            <p><a href="#">Pengecatan</a></p>
+            <p><a href="#">Perakitan</a></p>
+            <p><a href="#">Layanan Lain</a></p>
+        </div>
+        <div class="footer-section">
+            <h3>Hubungi Kami</h3>
+            <p><a href="mailto:Layanan@EJM.com">Layanan@EJM.com</a></p>
+            <p>(+62)85785457239</p>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/soffirizkyana_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.wizard.id/11b6a2" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://maps.app.goo.gl/kUX2pfBnbi17pi5UA" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="www.youtube.com/@soffirizkyanaputri" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+        </div>
+    <button class="scroll-to-top"><i class="fas fa-arrow-up"></i></button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efek Alert pada Tombol Reservasi Awal
+            const reservasiButtonAwal = document.querySelectorAll('.nav-service-button');
+            reservasiButtonAwal.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    alert('Fitur reservasi saat ini belum tersedia. Silakan gunakan formulir di bawah.');
+                    const reservationForm = document.getElementById('reservationFormContainer');
+                    if (reservationForm) {
+                        reservationForm.style.display = 'block';
+                        reservationForm.classList.add('show');
+                    } 
+                });
+            });
+            const reservationFormContainer = document.getElementById('reservationFormContainer');
+            const reservationStep1 = document.getElementById('reservationStep1');
+            const nextStep1Button = document.getElementById('nextStep1');
+            const reservationStep2 = document.getElementById('reservationStep2');
+            const prevStep2Button = document.getElementById('prevStep2');
+            const submitReservationButton = document.getElementById('submitReservation');
+            const reservationMessage = document.getElementById('reservationMessage');
+            const serviceTypeSelect = document.getElementById('serviceType');
+            const reservationDateInput = document.getElementById('reservationDate');
+            const reservationTimeSelect = document.getElementById('reservationTime');
+
+            if (nextStep1Button && reservationStep1 && reservationStep2 && serviceTypeSelect) {
+                nextStep1Button.addEventListener('click', function() {
+                    if (serviceTypeSelect.value === '') {
+                        alert('Harap pilih jenis layanan.');
+                        return;
+                    }
+                    reservationStep1.classList.add('hide');
+                    setTimeout(() => {
+                        reservationStep1.style.display = 'none';
+                        reservationStep2.classList.remove('hide');
+                        reservationStep2.classList.add('show');
+                    }, 300);
+                });
+            }
+            if (prevStep2Button && reservationStep1 && reservationStep2) {
+                prevStep2Button.addEventListener('click', function() {
+                    reservationStep2.classList.add('hide');
+                    setTimeout(() => {
+                        reservationStep2.style.display = 'none';
+                        reservationStep1.classList.remove('hide');
+                        reservationStep1.style.display = 'block';
+                    }, 300);
+                });
+            }
+            if (submitReservationButton && reservationMessage && serviceTypeSelect && reservationDateInput && reservationTimeSelect) {
+                submitReservationButton.addEventListener('click', function() {
+                    if (serviceTypeSelect.value === '' || reservationDateInput.value === '' || reservationTimeSelect.value === '') {
+                        alert('Harap lengkapi semua informasi reservasi.');
+                        return;
+                    }
+                    const selectedService = serviceTypeSelect.value;
+                    const selectedDate = reservationDateInput.value;
+                    const selectedTime = reservationTimeSelect.value;
+                    reservationMessage.textContent = "Reservasi untuk layanan ${selectedService} pada tanggal ${selectedDate} pukul ${selectedTime} telah dikirim (simulasi). Kami akan segera menghubungi Anda.";
+                    reservationMessage.style.display = 'block';
+                    reservationMessage.style.opacity = 0;
+                    setTimeout(() => {
+                        reservationMessage.style.opacity = 1;
+                    }, 50);
+                    setTimeout(function() {
+                        reservationMessage.style.opacity = 0;
+                        setTimeout(() => {
+                            reservationMessage.style.display = 'none';
+                            reservationFormContainer.classList.remove('show');
+                            reservationFormContainer.style.display = 'none';
+                            serviceTypeSelect.value = '';
+                            reservationDateInput.value = '';
+                            reservationTimeSelect.value = '';
+                            reservationStep1.classList.remove('hide');
+                            reservationStep1.style.display = 'block';
+                            reservationStep2.classList.remove('show');
+                            reservationStep2.style.display = 'none';
+                        }, 300);
+                    }, 5000);
+                });
+            }
+            // Pesan Konfirmasi pada Tombol Meminta Layanan & Validasi Sederhana
+            const requestServiceButton = document.getElementById('requestServiceButton');
+            const requestServiceMessage = document.getElementById('requestServiceMessage');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            if (requestServiceButton && requestServiceMessage && nameInput && emailInput) {
+                requestServiceButton.addEventListener('click', function() {
+                    if (nameInput.value.trim() === '') {
+                        alert('Harap masukkan nama Anda.');
+                        return;
+                    }
+                    if (emailInput.value.trim() === '' || !emailInput.value.includes('@')) {
+                        alert('Harap masukkan alamat email yang valid.');
+                        return;
+                    }
+                    requestServiceMessage.textContent = 'Permintaan layanan Anda telah terkirim!';
+                    requestServiceMessage.style.display = 'block';
+                    nameInput.value = '';
+                    emailInput.value = '';
+                    document.getElementById('message').value = '';
+                    setTimeout(function() {
+                        requestServiceMessage.style.display = 'none';
+                    }, 3000);
+                });
+            }
+            // Animasi Bilah Kepuasan Klien
+            const satisfactionBar = document.getElementById('satisfactionBar');
+            if (satisfactionBar) {
+                setTimeout(function() {
+                    satisfactionBar.style.width = '90%';
+                }, 500);
+            }
+            // Efek Scroll-to-Top
+            const scrollToTopButton = document.querySelector('.scroll-to-top');
+            if (scrollToTopButton) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 300) {
+                        scrollToTopButton.style.display = 'block';
+                    } else {
+                        scrollToTopButton.style.display = 'none';
+                    }
+                });
+                scrollToTopButton.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
